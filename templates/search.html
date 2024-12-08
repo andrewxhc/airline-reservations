@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Search Flights{% endblock %}
+
+{% block content %}
+<h1>Search Flights</h1>
+
+<h2>Search Future Flights</h2>
+<form method="post">
+    <label>Source City/Airport Name:</label>
+    <input type="text" name="source" value="{{ source }}" required>
+    <label>Destination City/Airport Name:</label>
+    <input type="text" name="destination" value="{{ destination }}" required>
+    <label>Departure Date:</label>
+    <input type="date" name="departure_date" value="{{ departure_date }}" required>
+    <label>Return Date (Optional):</label>
+    <input type="date" name="return_date" value="{{ return_date }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if departure_flights %}
+    <h2>Departure Flights</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Airline</th>
+                <th>Flight Number</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Status</th>
+                {% if session.get('role') == 'customer' %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in departure_flights %}
+            <tr>
+                <td>{{ flight.airline }}</td>
+                <td>{{ flight.flight_num }}</td>
+                <td>{{ flight.dep_datetime }}</td>
+                <td>{{ flight.arr_datetime }}</td>
+                <td>{{ flight.status }}</td>
+                {% if session.get('role') == 'customer' %}
+                <td>
+                    <a href="{{ url_for('purchase_ticket', flight_num=flight.flight_num) }}">
+                        <button type="button">Purchase Ticket</button>
+                    </a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+{% if return_flights %}
+    <h2>Return Flights</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Airline</th>
+                <th>Flight Number</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Status</th>
+                {% if session.get('role') == 'customer' %}
+                <th>Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in return_flights %}
+            <tr>
+                <td>{{ flight.airline }}</td>
+                <td>{{ flight.flight_num }}</td>
+                <td>{{ flight.dep_datetime }}</td>
+                <td>{{ flight.arr_datetime }}</td>
+                <td>{{ flight.status }}</td>
+                {% if session.get('role') == 'customer' %}
+                <td>
+                    <a href="{{ url_for('purchase_ticket', flight_num=flight.flight_num) }}">
+                        <button type="button">Purchase Ticket</button>
+                    </a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}

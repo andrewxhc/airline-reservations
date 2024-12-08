@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}View Ratings{% endblock %}
+
+{% block content %}
+<h1>View Flight Ratings</h1>
+
+<form method="post">
+    <div style="margin-bottom: 15px;">
+        <label>Flight Number:</label>
+        <input type="text" name="flight_num" placeholder="Enter Flight Number" required>
+    </div>
+    <button type="submit">View Ratings</button>
+</form>
+
+{% if flight_num %}
+    <h2>Ratings for Flight {{ flight_num }}</h2>
+    <div style="margin-bottom: 15px;">
+        <h3>Average Rating: {{ average_rating }}</h3>
+    </div>
+
+    {% if ratings %}
+    <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Customer</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rating in ratings %}
+            <tr>
+                <td>{{ rating.rating }}</td>
+                <td>{{ rating.comment }}</td>
+                <td>{{ rating.first_name }} {{ rating.last_name }} ({{ rating.email }})</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No ratings available for this flight.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}

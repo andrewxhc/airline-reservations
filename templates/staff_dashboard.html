@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Staff Dashboard{% endblock %}
+
+{% block content %}
+<h1>Staff Dashboard</h1>
+
+<a href="{{ url_for('create_flight') }}" class="button">Create New Flight</a>
+<a href="{{ url_for('change_status') }}" class="button">Change Flight Status</a>
+<a href="{{ url_for('add_airplane') }}" class="button">Add Airplane</a>
+<a href="{{ url_for('add_maintenance') }}" class="button">Add Maintenance</a>
+<a href="{{ url_for('add_airport') }}" class="button">Add Airport</a>
+<a href="{{ url_for('view_ratings') }}" class="button">View Flight Ratings</a>
+<a href="{{ url_for('frequent_flyers') }}" class="button">View Frequent Flyers</a>
+<a href="{{ url_for('view_customer') }}" class="button">View Customer</a>
+<a href="{{ url_for('view_revenue') }}" class="button">View Earned Revenue</a>
+
+
+
+
+<h2>View Flights</h2>
+<form method="post">
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+
+    <label for="source">Source City:</label>
+    <input type="text" id="source" name="source" value="{{ source }}">
+
+    <label for="destination">Destination City:</label>
+    <input type="text" id="destination" name="destination" value="{{ destination }}">
+
+    <button type="submit">Search</button>
+</form>
+
+<h3>Flights</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Flight Number</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Status</th>
+            <th>Customers</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for flight in flights %}
+        <tr>
+            <td>{{ flight.flight_num }}</td>
+            <td>{{ flight.dep_datetime }}</td>
+            <td>{{ flight.arr_datetime }}</td>
+            <td>{{ flight.source_city }} ({{ flight.source_airport }})</td>
+            <td>{{ flight.destination_city }} ({{ flight.destination_airport }})</td>
+            <td>{{ flight.status }}</td>
+            <td>
+                <a href="{{ url_for('flight_customers', flight_num=flight.flight_num) }}">View Customers</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

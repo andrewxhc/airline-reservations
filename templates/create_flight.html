@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Create Flight{% endblock %}
+
+{% block content %}
+<h1>Create a New Flight</h1>
+<form method="post">
+    <div style="margin-bottom: 15px;">
+        <label>Flight Number:</label>
+        <input type="text" name="flight_num" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Departure Date and Time:</label>
+        <input type="datetime-local" name="dep_datetime" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Arrival Date and Time:</label>
+        <input type="datetime-local" name="arr_datetime" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Base Price:</label>
+        <input type="number" name="base_price" step="0.01" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Status:</label>
+        <select name="status" required>
+            <option value="on time">On Time</option>
+            <option value="delayed">Delayed</option>
+            <option value="cancelled">Cancelled</option>
+        </select>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Source Airport:</label>
+        <select name="source_airport_id" required>
+            {% for airport in airports %}
+            <option value="{{ airport.airport_id }}">{{ airport.city }} ({{ airport.name }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Destination Airport:</label>
+        <select name="destination_airport_id" required>
+            {% for airport in airports %}
+            <option value="{{ airport.airport_id }}">{{ airport.city }} ({{ airport.name }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Airplane:</label>
+        <select name="airplane_id" required>
+            {% for airplane in airplanes %}
+            <option value="{{ airplane.airplane_id }}">{{ airplane.airplane_id }} - {{ airplane.airplane_name }}</option>
+            {% endfor %}
+        </select>
+    </div>    
+
+    <button type="submit">Create Flight</button>
+</form>
+{% endblock %}

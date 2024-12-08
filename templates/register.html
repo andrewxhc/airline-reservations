@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<h1>Register</h1>
+<form method="post">
+    <input type="hidden" name="role" value="{{ role }}">
+
+    {% if role == 'customer' %}
+    <div style="margin-bottom: 15px;">
+        <label>Email:</label>
+        <input type="text" name="email_or_username" required>
+    </div>
+    {% elif role == 'staff' %}
+    <div style="margin-bottom: 15px;">
+        <label>Username:</label>
+        <input type="text" name="email_or_username" required>
+    </div>
+    {% endif %}
+    
+    <div style="margin-bottom: 15px;">
+        <label>Password:</label>
+        <input type="password" name="password" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>First Name:</label>
+        <input type="text" name="first_name" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Last Name:</label>
+        <input type="text" name="last_name" required>
+    </div>
+
+    {% if role == 'customer' %}
+    <div id="customer-fields">
+        <div style="margin-bottom: 15px;">
+            <label>Building Number:</label>
+            <input type="text" name="building_num">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Street Name:</label>
+            <input type="text" name="street_name">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Apartment Number:</label>
+            <input type="text" name="apt_num">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>State:</label>
+            <input type="text" name="state">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>ZIP Code:</label>
+            <input type="text" name="zip">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Passport Number:</label>
+            <input type="text" name="passport_num">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Passport Expiration:</label>
+            <input type="date" name="passport_expiration">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Passport Country:</label>
+            <input type="text" name="passport_country">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label>Date of Birth:</label>
+            <input type="date" name="date_of_birth">
+        </div>
+    </div>
+    {% elif role == 'staff' %}
+    <div id="staff-fields" style="margin-bottom: 15px;">
+        <label>Date of Birth:</label>
+        <input type="date" name="date_of_birth">
+    </div>
+    <div id="staff-fields" style="margin-bottom: 15px;">
+        <label>Email:</label>
+        <input type="text" name="staff_email">
+    </div>
+
+    <h3>Phone Numbers</h3>
+    <div id="phone-section" style="margin-bottom: 15px;">
+        <div>
+            <input type="text" name="phone_num" placeholder="Enter phone number">
+        </div>
+    </div>
+    <button type="button" onclick="addPhoneNumber()">Add Another Phone Number</button>
+    {% endif %}
+
+    <button type="submit">Register</button>
+</form>
+
+<script>
+    function addPhoneNumber() {
+        const section = document.getElementById('phone-section');
+        const div = document.createElement('div');
+        div.style.marginTop = '15px';
+        div.innerHTML = `<input type="text" name="phone_num" placeholder="Enter phone number">`;
+        section.appendChild(div);
+    }
+</script>
+{% endblock %}

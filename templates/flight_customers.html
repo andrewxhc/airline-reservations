@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Flight Customers{% endblock %}
+
+{% block content %}
+<h1>Customers for Flight {{ flight_num }}</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
+            <th>Ticket Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.email }}</td>
+            <td>{{ customer.first_name }}</td>
+            <td>{{ customer.last_name }}</td>
+            <td>{{ customer.date_of_birth }}</td>
+            <td>{{ customer.ticket_price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

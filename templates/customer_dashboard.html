@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+<h1>Customer Dashboard</h1>
+
+<h2>Upcoming Flights</h2>
+{% if upcoming_flights %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Airline</th>
+                <th>Flight Number</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in upcoming_flights %}
+            <tr>
+                <td>{{ flight.ticket_id }}</td>
+                <td>{{ flight.airline }}</td>
+                <td>{{ flight.flight_num }}</td>
+                <td>{{ flight.dep_datetime }}</td>
+                <td>{{ flight.arr_datetime }}</td>
+                <td>${{ flight.ticket_price }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No upcoming flights.</p>
+{% endif %}
+
+<h2>Past Flights</h2>
+{% if past_flights %}
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Ticket ID</th>
+                <th>Airline</th>
+                <th>Flight Number</th>
+                <th>Departure</th>
+                <th>Arrival</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in past_flights %}
+            <tr>
+                <td>{{ flight.ticket_id }}</td>
+                <td>{{ flight.airline }}</td>
+                <td>{{ flight.flight_num }}</td>
+                <td>{{ flight.dep_datetime }}</td>
+                <td>{{ flight.arr_datetime }}</td>
+                <td>${{ flight.ticket_price }}</td>
+                <td>
+                    <a href="{{ url_for('rate_flight', flight_num=flight.flight_num) }}">
+                        <button type="button">Rate Flight</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No past flights.</p>
+{% endif %}
+
+<h2>Track My Spending</h2>
+<p>Total Spent: ${{ total_spent }}</p>
+
+<form method="post">
+    <label for="start_date">Start Date:</label>
+    <input type="date" id="start_date" name="start_date" value="{{ start_date }}" required>
+
+    <label for="end_date">End Date:</label>
+    <input type="date" id="end_date" name="end_date" value="{{ end_date }}" required>
+
+    <button type="submit">View Spending</button>
+</form>
+
+<h3>Monthly Spending</h3>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Month</th>
+            <th>Total Spent</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in monthly_chart_data %}
+        <tr>
+            <td>{{ data.month }}</td>
+            <td>${{ data.total_spent }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

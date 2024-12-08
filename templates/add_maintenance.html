@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Add Maintenance{% endblock %}
+
+{% block content %}
+<h1>Add Maintenance</h1>
+<form method="post">
+    <div style="margin-bottom: 15px;">
+        <label>Select Airplane:</label>
+        <select name="airplane_id" required>
+            <option value="" disabled selected>Select an airplane</option>
+            {% for airplane in airplanes %}
+            <option value="{{ airplane.airplane_id }}">
+                {{ airplane.manufacturer }} {{ airplane.model_num }} (ID: {{ airplane.airplane_id }})
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Start Date and Time:</label>
+        <input type="datetime-local" name="start_datetime" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>End Date and Time:</label>
+        <input type="datetime-local" name="end_datetime" required>
+    </div>
+    <button type="submit">Add Maintenance</button>
+</form>
+{% endblock %}

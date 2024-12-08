@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Page{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css"> 
+</head>
+<body>
+    <a href="/" class="blue-button">Home</a>
+
+    {% if 'user' in session %}
+        {% if session['role'] == 'customer' %}
+            <a href="/customer_dashboard" class="blue-button">Dashboard</a>
+        {% elif session['role'] == 'staff' %}
+            <a href="/staff_dashboard" class="blue-button">Dashboard</a>
+        {% endif %}
+
+        <form method="post" action="{{ url_for('logout') }}" style="display: inline;">
+            <button type="submit" class="red-button">Logout</button>
+        </form>
+
+    {% else %}
+        <a href="/login" class="blue-button">Login</a>
+    {% endif %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+            {% for category, message in messages %}
+                <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+
+
+</body>
+</html>

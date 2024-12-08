@@ -1,0 +1,43 @@
+.blue-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: blue;
+    border: 1px solid blue;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.blue-button:hover {
+    background-color: blue;
+    color: white;
+    border-color: blue;
+}
+
+
+.red-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: red;
+    border: 1px solid red;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.red-button:hover {
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+
+
+
+body {
+    margin-top: 10px;
+    margin-left: 40px;
+}

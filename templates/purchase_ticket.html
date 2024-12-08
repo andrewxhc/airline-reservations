@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Purchase Tickets{% endblock %}
+
+{% block content %}
+<h1>Purchase Tickets</h1>
+<p>Flight Number: {{ flight_num }}</p>
+<p>Available Seats: {{ available_seats }}</p>
+<p>Ticket Price: ${{ ticket_price }}</p>
+
+<form method="post">
+    <label>Number of Tickets:</label>
+    <input type="number" name="num_tickets" id="num_tickets" min="1" max="{{ available_seats }}" value="1" required>
+
+    <div id="ticket-details-container">
+    </div>
+
+    <h2>Payment Information</h2>
+    <label>Card Type:</label>
+    <select name="card_type" required>
+        <option value="Debit">Debit</option>
+        <option value="Credit">Credit</option>
+    </select>
+
+    <label>Card Number:</label>
+    <input type="text" name="card_num" required>
+
+    <label>Name on Card:</label>
+    <input type="text" name="card_name" required>
+
+    <label>Expiration Date:</label>
+    <input type="date" name="exp_date" required>
+
+    <label>Security Code (CVV):</label>
+    <input type="text" name="card_cvv" maxlength="4" pattern="\d{3,4}" required title="Enter a 3 or 4-digit security code">
+
+    <br>
+    <br>
+    <button type="submit">Purchase</button>
+</form>
+
+<script>
+    const ticketDetailsContainer = document.getElementById('ticket-details-container');
+    const numTicketsInput = document.getElementById('num_tickets');
+
+    function generateTicketFields() {
+        ticketDetailsContainer.innerHTML = '';
+        const numTickets = parseInt(numTicketsInput.value);
+        for (let i = 0; i < numTickets; i++) {
+            ticketDetailsContainer.innerHTML += `
+                <h3>Passenger ${i + 1}</h3>
+                <label>First Name:</label>
+                <input type="text" name="first_name_${i}" required>
+                <label>Last Name:</label>
+                <input type="text" name="last_name_${i}" required>
+                <label>Date of Birth:</label>
+                <input type="date" name="date_of_birth_${i}" required>
+            `;
+        }
+    }
+
+    numTicketsInput.addEventListener('change', generateTicketFields);
+    generateTicketFields();
+</script>
+{% endblock %}

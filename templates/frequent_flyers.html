@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Frequent Flyers{% endblock %}
+
+{% block content %}
+<h1>Frequent Flyers</h1>
+
+{% if frequent_flyers %}
+<table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Tickets Purchased</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for flyer in frequent_flyers %}
+        <tr>
+            <td>{{ flyer.email }}</td>
+            <td>{{ flyer.first_name }}</td>
+            <td>{{ flyer.last_name }}</td>
+            <td>{{ flyer.ticket_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No frequent flyers found in the past year.</p>
+{% endif %}
+
+<a href="{{ url_for('staff_dashboard') }}" class="home-button">Back to Dashboard</a>
+{% endblock %}

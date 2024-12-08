@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Flights{% endblock %}
+
+{% block content %}
+<h1>View Customer Flights</h1>
+
+<form method="post" style="margin-bottom: 20px;">
+    <div style="margin-bottom: 15px;">
+        <label>Customer Email:</label>
+        <input type="email" name="customer_email" placeholder="Enter Customer Email" required>
+    </div>
+    <button type="submit">View Flights</button>
+</form>
+
+{% if customer_email %}
+    <h2>Flights for Customer: {{ customer_email }}</h2>
+
+    {% if flights %}
+    <table border="1" cellpadding="10" style="border-collapse: collapse; width: 100%;">
+        <thead>
+            <tr>
+                <th>Flight Number</th>
+                <th>Departure Date/Time</th>
+                <th>Arrival Date/Time</th>
+                <th>Base Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for flight in flights %}
+            <tr>
+                <td>{{ flight.flight_num }}</td>
+                <td>{{ flight.dep_datetime }}</td>
+                <td>{{ flight.arr_datetime }}</td>
+                <td>{{ flight.base_price }}</td>
+                <td>{{ flight.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No flights found for this customer on your airline.</p>
+    {% endif %}
+{% endif %}
+
+<a href="{{ url_for('staff_dashboard') }}" class="home-button">Back to Dashboard</a>
+{% endblock %}

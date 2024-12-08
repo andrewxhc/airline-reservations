@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Add Airport{% endblock %}
+
+{% block content %}
+<h1>Add Airport</h1>
+<form method="post">
+    <div style="margin-bottom: 15px;">
+        <label>Airport ID:</label>
+        <input type="text" name="airport_id" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Airport Name:</label>
+        <input type="text" name="name" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>City:</label>
+        <input type="text" name="city" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Country:</label>
+        <input type="text" name="country" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Number of Terminals:</label>
+        <input type="number" name="num_terminals" min="1" required>
+    </div>
+    <div style="margin-bottom: 15px;">
+        <label>Airport Type:</label>
+        <select name="type" required>
+            <option value="" disabled selected>Select type</option>
+            <option value="Domestic">Domestic</option>
+            <option value="International">International</option>
+            <option value="Both">Both</option>
+        </select>
+    </div>
+    <button type="submit">Add Airport</button>
+</form>
+{% endblock %}
